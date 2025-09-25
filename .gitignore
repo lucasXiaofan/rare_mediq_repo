@@ -1,0 +1,16 @@
+**/__pycache__
+**/.DS_Store
+tmp
+**/nohup.out
+**/out
+**/keys
+save
+MultimodalLLM
+checkpoints
+run_outputs
+log
+**/save
+*.jsonl
+# ignore all files under .git_disabled/lfs/objects
+MedRAG/corpus/pubmed/.git_disabled/lfs/objects/
+MedRAG/corpus/pubmed/.git_disabled/
