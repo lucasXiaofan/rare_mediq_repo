@@ -27,7 +27,7 @@ python -m uv run python index_colbert.py pubmed ./chunks/PubMed_chunks.pickle
 
 # Step 3: Start ColBERT API (background process)
 cd $PROJECT_DIR/rare_mediq/run_src
-python -m uv run python colbert_server.py ./colbert_indices/pubmed --collection ../MedRAG/chunks/PubMed_chunks.pickle &
+python -m python MedRAG/index_colbert.py pubmed MedRAG/chunks/PubMed_chunks.pickle
 
 # Step 4: Run RARE
 cd $PROJECT_DIR/rare_mediq

@@ -9,8 +9,8 @@ python3 run_src/do_rare.py \
     --disable_a5 \
     --disable_a8 \
     --disable_a4 \
-    # --disable_a6 \
-    # --disable_a7 \
+    --disable_a6 \
+    --disable_a7 \
     --enable_chat_template true \
     --num_retrieval 5 \
     --retrieval_corpus "pubmed" \

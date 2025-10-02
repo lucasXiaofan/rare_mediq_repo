@@ -47,12 +47,14 @@ def main():
     patient_class = getattr(patient_module, args.patient_class)
     
     patient_data_path = os.path.join(args.data_dir, args.dev_filename)
+    print(f"[learning process] what is the patient_data_path {patient_data_path}")
     patient_data = load_data(patient_data_path)
 
     num_processed = 0
     correct_history, timeout_history, turn_lengths = [], [], []
-
-    for pid, sample in patient_data.items():
+    
+    max_patients = 10
+    for pid, sample in list(patient_data.items())[:max_patients]:
         if pid in processed_ids:
             print(f"Skipping patient {pid} as it has already been processed.")
             correct_history.append(processed_ids[pid]["correct"])
@@ -108,6 +110,7 @@ def main():
     
 
 def run_patient_interaction(expert_class, patient_class, sample):
+    print(f"[learning process] understand the sample: {sample}")
     expert_system = expert_class(args, sample["question"], sample["options"])
     patient_system = patient_class(args, sample)  # Assuming the patient_system is initialized with the sample which includes necessary context
     temp_choice_list = []
@@ -116,6 +119,7 @@ def run_patient_interaction(expert_class, patient_class, sample):
     while len(patient_system.get_questions()) < args.max_questions:
         log_info(f"==================== Turn {len(patient_system.get_questions()) + 1} ====================")
         patient_state = patient_system.get_state()
+        print(f"[learning process] need understand the content of patient state {patient_state}")
         response_dict = expert_system.respond(patient_state)
         log_info(f"[Expert System]: {response_dict}")
         

@@ -5,12 +5,12 @@ def get_args():
     parser = argparse.ArgumentParser(description="Run the benchmark with specified configurations.")
     parser.add_argument('--expert_module', type=str, default='expert', help='file name where the expert class is implemented.')
     parser.add_argument('--expert_class', type=str, required=True, help='Expert class name to use for the benchmark.')
-    parser.add_argument('--expert_model', type=str, default='meta-llama/Llama-3.1-8B-Instruct', help='Expert model name to use for the benchmark, can be a local model or a Huggingface model.')
-    parser.add_argument('--expert_model_question_generator', type=str, default='meta-llama/Llama-3.1-8B-Instruct', help='You can set a separate model for the follow-up question generator, can be a local model or a Huggingface model.')
+    parser.add_argument('--expert_model', type=str, default='Qwen/Qwen3-0.6B', help='Expert model name to use for the benchmark, can be a local model or a Huggingface model.')
+    parser.add_argument('--expert_model_question_generator', type=str, default='Qwen/Qwen3-0.6B', help='You can set a separate model for the follow-up question generator, can be a local model or a Huggingface model.')
     
     parser.add_argument('--patient_module', type=str, default='patient', help='file name where the patient class is implemented.')
     parser.add_argument('--patient_class', type=str, required=True, help='Patient class name to use for the benchmark.')
-    parser.add_argument('--patient_model', type=str, default='meta-llama/Llama-3.1-8B-Instruct', help='Patient model name to use for the benchmark, can be a local model or a Huggingface model.')
+    parser.add_argument('--patient_model', type=str, default='Qwen/Qwen3-0.6B', help='Patient model name to use for the benchmark, can be a local model or a Huggingface model.')
     
     parser.add_argument('--data_dir', type=str, required=True, help='Directory containing the development data files.')
     parser.add_argument('--dev_filename', type=str, required=True, help='Filename for development data.')

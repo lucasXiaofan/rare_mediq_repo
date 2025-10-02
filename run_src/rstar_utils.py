@@ -392,9 +392,9 @@ def concat_solution_trace(solution_trace: Dict[int, Dict[str, str]]):
                 end_node_type = Node_Type.DIRECT_ANSWER
                 break
             else:
-                import pdb
-
-                pdb.set_trace()
+                # import pdb
+                pass
+                # pdb.set_trace()
 
     solution_trace_str = solution_trace_str.replace("Let's think step by step. ", "")
     solution_trace_str = "Let's think step by step. " + solution_trace_str
@@ -499,9 +499,9 @@ def concat_subq_suba_trace(solution_trace: Dict[int, Dict[str, str]]):
                 end_node_type = Node_Type.DIRECT_ANSWER
                 break
             else:
-                import pdb
-
-                pdb.set_trace()
+                # import pdb
+                pass
+                # pdb.set_trace()
 
     return solution_trace_str, final_step_str.strip(), end_node_type
 
@@ -778,6 +778,3 @@ def stochastic_find_best_solution(
                 top_score = node_value
                 top_answer = extract_solution_from_node(node)
         return top_answer, None, None, solution_nodes, solutions
-
-
-

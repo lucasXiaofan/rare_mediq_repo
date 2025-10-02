@@ -57,7 +57,12 @@ def main(args):
 
     test_file = os.path.join(args.data_root, args.dataset_name, args.test_json_filename + ".json")
     assert os.path.exists(test_file), f"Test file {test_file} does not exist."
-    data_item_list = read_json(test_file)
+    
+    # limit top 100 
+    max_items = 20
+    data_item_list = read_json(test_file)[:max_items]
+
+    # data_item_list = read_json(test_file)
 
     if os.path.exists(args.save_path):
         with open(args.save_path, "r") as f:

@@ -9,10 +9,20 @@ def answer_to_idx(answer):
     return ord(answer) - ord("A")
 
 def log_info(message, logger="detail_logger", print_to_std=False):
-    if type(logger) == str and logger in logging.getLogger().manager.loggerDict:
+    if isinstance(logger, str):
         logger = logging.getLogger(logger)
-    if logger: logger.info(message)
-    if print_to_std: print(message + "\n")
+        if not logger.hasHandlers():
+            # fallback handler to avoid AttributeError
+            handler = logging.StreamHandler()
+            logger.addHandler(handler)
+            logger.setLevel(logging.INFO)
+    try:
+        logger.info(message)
+    except Exception:
+        print(message)
+    if print_to_std:
+        print(message + "\n")
+
 
 
 

@@ -1,71 +1,38 @@
 Loading cuda version 12.6
 Loading cudnn version 8.9.7.29-12
-warning: `VIRTUAL_ENV=/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq_venv` does not match the project environment path `/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/.venv` and will be ignored; use `--active` to target the active environment instead
-warning: `VIRTUAL_ENV=/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq_venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+No conda package cache directories found outside your home directory. To
+prevent conda from filling up your home directory, you can create a new
+directory at `/work/pi_<your_pi_name>/$USER/.conda/pkgs` and reload the module. 
+No conda environment directories found outside your home directory. To prevent
+conda from filling up your home directory, you can create a new directory at
+`/work/pi_<your_pi_name>/$USER/.conda/envs` and reload the module. 
+Loading conda version miniforge3-24.7.1
 The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
 `torch_dtype` is deprecated! Use `dtype` instead!
-[W925 15:56:08.473815670 ProcessGroupNCCL.cpp:981] Warning: TORCH_NCCL_AVOID_RECORD_STREAMS is the default now, this environment variable is thus deprecated. (function operator())
-[1;36m(EngineCore_DP0 pid=1173401)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-[1;36m(EngineCore_DP0 pid=1173401)[0;0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.18it/s]
-[1;36m(EngineCore_DP0 pid=1173401)[0;0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.18it/s]
-[1;36m(EngineCore_DP0 pid=1173401)[0;0m 
-[1;36m(EngineCore_DP0 pid=1173401)[0;0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/67 [00:00<?, ?it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   7%|▋         | 5/67 [00:00<00:01, 46.69it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  15%|█▍        | 10/67 [00:00<00:01, 47.68it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  22%|██▏       | 15/67 [00:00<00:01, 47.59it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  30%|██▉       | 20/67 [00:01<00:06,  7.09it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  37%|███▋      | 25/67 [00:02<00:04, 10.22it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  45%|████▍     | 30/67 [00:02<00:02, 13.93it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  52%|█████▏    | 35/67 [00:02<00:01, 18.07it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  60%|█████▉    | 40/67 [00:02<00:01, 22.25it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  67%|██████▋   | 45/67 [00:02<00:00, 26.33it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  75%|███████▍  | 50/67 [00:02<00:00, 30.00it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  82%|████████▏ | 55/67 [00:03<00:00, 19.94it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|████████▉ | 60/67 [00:03<00:00, 23.69it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  96%|█████████▌| 64/67 [00:03<00:00, 14.90it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 67/67 [00:05<00:00,  6.87it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 67/67 [00:05<00:00, 13.38it/s]
+[W1001 19:44:31.158986117 ProcessGroupNCCL.cpp:981] Warning: TORCH_NCCL_AVOID_RECORD_STREAMS is the default now, this environment variable is thus deprecated. (function operator())
+[1;36m(EngineCore_DP0 pid=3988008)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+[1;36m(EngineCore_DP0 pid=3988008)[0;0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.64it/s]
+[1;36m(EngineCore_DP0 pid=3988008)[0;0m Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.64it/s]
+[1;36m(EngineCore_DP0 pid=3988008)[0;0m 
+[1;36m(EngineCore_DP0 pid=3988008)[0;0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/67 [00:00<?, ?it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   6%|▌         | 4/67 [00:00<00:01, 37.79it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  12%|█▏        | 8/67 [00:00<00:01, 37.66it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  18%|█▊        | 12/67 [00:00<00:01, 36.00it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  24%|██▍       | 16/67 [00:00<00:01, 35.06it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  30%|██▉       | 20/67 [00:00<00:01, 27.00it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  36%|███▌      | 24/67 [00:00<00:01, 29.12it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  42%|████▏     | 28/67 [00:00<00:01, 31.69it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  48%|████▊     | 32/67 [00:00<00:01, 33.48it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  54%|█████▎    | 36/67 [00:01<00:00, 34.32it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  60%|█████▉    | 40/67 [00:01<00:00, 34.89it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  66%|██████▌   | 44/67 [00:01<00:00, 33.52it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  72%|███████▏  | 48/67 [00:01<00:00, 33.70it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  78%|███████▊  | 52/67 [00:01<00:00, 34.42it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  84%|████████▎ | 56/67 [00:01<00:00, 30.46it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|████████▉ | 60/67 [00:01<00:00, 30.97it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  96%|█████████▌| 64/67 [00:02<00:00, 29.42it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 67/67 [00:02<00:00, 29.73it/s]
 
-  0%|          | 0/1273 [00:00<?, ?it/s][A  0%|          | 0/1273 [00:24<?, ?it/s]
-Traceback (most recent call last):
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_for_reasoning_plus.py", line 604, in generate_direct_answers
-    most_likely_choices, most_likely_answers, likelihoods = self._get_most_likely_answer_with_options(cleaned_io_output_list, options)
-                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_for_reasoning_plus.py", line 152, in _get_most_likely_answer_with_options
-    most_confident_choices, most_confident_answer_full_completions, _, confidences = self.evaluator.find_most_confident_answer_with_options(
-                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/eval_src/Evaluator.py", line 169, in find_most_confident_answer_with_options
-    for id, c in enumerate(completions):
-                 ^^^^^^^^^
-  File "/usr/lib/python3.12/bdb.py", line 90, in trace_dispatch
-    return self.dispatch_line(frame)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/bdb.py", line 115, in dispatch_line
-    if self.quitting: raise BdbQuit
-                      ^^^^^^^^^^^^^
-bdb.BdbQuit
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/do_rare.py", line 318, in <module>
-    main(args)
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/do_rare.py", line 105, in main
-    best_choice, freq_choice, choice_info, all_solution_nodes, all_solutions = search_for_answers(
-                                                                               ^^^^^^^^^^^^^^^^^^^
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_for_reasoning_plus.py", line 1861, in search_for_answers
-    rollout_node = mcts_searcher.do_rollout(root_node, i)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_backbone.py", line 96, in do_rollout
-    self._expand(leaf, rollout_id)
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_backbone.py", line 135, in _expand
-    self.parent2children[node] = node.find_children(rollout_id)
-                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_for_reasoning_plus.py", line 1783, in find_children
-    self.children = self.children or self._create_children()
-                                     ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_for_reasoning_plus.py", line 1662, in _create_children
-    do_action_generate_direct_answers()
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_for_reasoning_plus.py", line 1436, in do_action_generate_direct_answers
-    (direct_answer_list, value_list, choice_list) = self.generator.generate_direct_answers(
-                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/project/pi_hongyu_umass_edu/zonghai/rare_mediq/rare_mediq/run_src/MCTS_for_reasoning_plus.py", line 606, in generate_direct_answers
-    raise GeneratorError(
-run_src.rstar_utils.GeneratorError
-
-If you suspect this is an IPython 9.5.0 bug, please report it at:
-    https://github.com/ipython/ipython/issues
-or send an email to the mailing list at ipython-dev@python.org
-
-You can print a more detailed traceback right now with "%tb", or use "%debug"
-to interactively debug it.
-
-Extra-detailed tracebacks for bug-reporting purposes can be enabled via:
-    %config Application.verbose_crash=True
-
-[rank0]:[W925 15:58:46.052038756 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+  0%|          | 0/20 [00:00<?, ?it/s][A
+ 15%|█▌        | 3/20 [01:15<07:08, 25.19s/it][A
+ 20%|██        | 4/20 [02:09<09:10, 34.40s/it][A
+ 25%|██▌       | 5/20 [03:31<12:22, 49.53s/it][A
+ 30%|███       | 6/20 [06:09<19:25, 83.22s/it][A
+ 35%|███▌      | 7/20 [07:21<17:14, 79.58s/it][A
+ 40%|████      | 8/20 [08:43<16:06, 80.53s/it][A
+ 45%|████▌     | 9/20 [09:53<14:10, 77.33s/it][A
+ 50%|█████     | 10/20 [10:31<10:52, 65.27s/it][A
+ 55%|█████▌    | 11/20 [11:19<09:02, 60.30s/it][A
+ 60%|██████    | 12/20 [12:46<09:06, 68.28s/it][A
+ 65%|██████▌   | 13/20 [14:14<08:38, 74.11s/it][A
+ 70%|███████   | 14/20 [15:58<08:18, 83.02s/it][A
+ 75%|███████▌  | 15/20 [17:21<06:56, 83.25s/it][A
+ 80%|████████  | 16/20 [18:58<05:48, 87.14s/it][A
+ 85%|████████▌ | 17/20 [20:20<04:17, 85.72s/it][A
+ 90%|█████████ | 18/20 [21:10<02:30, 75.04s/it][A
+ 95%|█████████▌| 19/20 [22:14<01:11, 71.80s/it][A
+100%|██████████| 20/20 [23:02<00:00, 64.48s/it][A100%|██████████| 20/20 [23:02<00:00, 69.12s/it]
+[rank0]:[W1001 20:08:34.889601292 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

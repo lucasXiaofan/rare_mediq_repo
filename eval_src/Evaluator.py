@@ -164,12 +164,12 @@ class Evaluator:
         answer2ids = defaultdict(list)
         num_valid_completions = 0
         threshold = self.find_threshold(completions, options)
-        import ipdb; ipdb.set_trace()
+        # import ipdb; ipdb.set_trace()
         # threshold = 0
         for id, c in enumerate(completions):
             try:
                 model_answer = self.extract_answer_from_model_completion(c)
-                import ipdb; ipdb.set_trace()
+                # import ipdb; ipdb.set_trace()
                 valid_answer, choice = self.check_valid_answer(model_answer, c, options, threshold)
                 if not valid_answer:
                     continue
