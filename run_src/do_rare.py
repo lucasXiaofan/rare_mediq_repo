@@ -59,7 +59,7 @@ def main(args):
     assert os.path.exists(test_file), f"Test file {test_file} does not exist."
     
     # limit top 100 
-    max_items = 20
+    max_items = 1
     data_item_list = read_json(test_file)[:max_items]
 
     # data_item_list = read_json(test_file)
@@ -111,6 +111,32 @@ def main(args):
             args=args, user_question=problem, question_id=i, gt_answer=gt_solution, generator=generator,
             options=options,
         )
+        print("=" * 80)
+        print(f"Problem ID: {problem_id}")
+        print("-" * 80)
+        print("Problem:")
+        print(problem.strip() if isinstance(problem, str) else problem)
+        print("-" * 80)
+        print("Ground Truth Solution:")
+        print(gt_solution.strip() if isinstance(gt_solution, str) else gt_solution)
+        print("-" * 80)
+        print("Options:")
+        if isinstance(options, list):
+            for idx, opt in enumerate(options):
+                print(f"  {idx + 1}. {opt}")
+        else:
+            print(options)
+        print("-" * 80)
+        print(f"Gold Answer: {gold_answer}")
+        print("-" * 80)
+        print("Predictions:")
+        print(f"  Best Choice: {best_choice}")
+        print(f"  Freq Choice: {freq_choice}")
+        print(f"  Choice Info: {choice_info}")
+        print(f"  # of Solution Nodes: {len(all_solution_nodes)}")
+        print(f"  # of Solutions: {len(all_solutions)}")
+        print("=" * 80 + "\n")
+
         if options is not None:
             correct = best_choice == gold_answer
             correct_gen = freq_choice == gold_answer

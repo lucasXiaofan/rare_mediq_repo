@@ -154,5 +154,5 @@ def get_response(messages, model_name, use_vllm=False, use_api=None, **kwargs):
     if model_cache is None:
         model_cache = ModelCache(model_name, use_vllm=use_vllm, use_api=use_api, **kwargs)
         models[model_name] = model_cache
-    
+    print(f"[learning process] [helper.py line 157] printout the messages {type(messages)}, content: {messages}")
     return model_cache.generate(messages)

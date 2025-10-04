@@ -192,7 +192,6 @@ def expert_response_choice(messages, options_dict, **kwargs):
         log_info("[<CHOICE LM RES>]: " + "No response.")
         return "No response.", None, num_tokens
     log_info("[<CHOICE LM RES>]: " + response_text)
-
     letter_choice = parse_choice(response_text, options_dict)
     if letter_choice:
         log_info("[<CHOICE PARSED>]: " + letter_choice)
@@ -214,8 +213,10 @@ def expert_response_question(messages, **kwargs):
         log_info("[<QUESTION GENERATOR LM RES>]: " + "No response.")
         return "No response.", None, num_tokens
     log_info("[<QUESTION GENERATOR LM RES>]: " + response_text)
-
+    print(f"[learning process][expert_basics line 217] what is response_text {response_text}")
     atomic_question = parse_atomic_question(response_text)
+    print(f"[learning process][expert_basics line 219] what is atomic_question {atomic_question}")
+
     if atomic_question:
         log_info("[<QUESTION GENERATOR PARSED>]: " + atomic_question)
     else:

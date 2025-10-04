@@ -63,11 +63,13 @@ export PYTHONPATH=$PROJECT_DIR/src:$PYTHONPATH
 echo "Starting MediQ benchmark..."
 python src/mediQ_benchmark.py \
     --expert_module expert \
-    --expert_class FixedExpert \
-    --expert_model Qwen/Qwen3-0.6B \
+    --expert_class ScaleExpert \
+    --expert_model Qwen/Qwen3-4B-Instruct-2507 \
     --patient_module patient \
-    --patient_model Qwen/Qwen3-0.6B \
-    --patient_class RandomPatient \
+    --patient_model Qwen/Qwen3-4B-Instruct-2507 \
+    --self_consistency 2\
+    --max_tokens 1000\
+    --patient_class FactSelectPatient \
     --data_dir data \
     --dev_filename all_dev_good.jsonl \
     --output_filename outputs/mediq_results_$(date +%Y%m%d_%H%M%S).jsonl \
