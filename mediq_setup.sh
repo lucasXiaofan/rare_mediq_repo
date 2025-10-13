@@ -5,8 +5,9 @@
 #SBATCH --constraint=a100
 #SBATCH -t 48:00:00
 #SBATCH --mem=100G
-#SBATCH -o mediq_run_out.txt
-#SBATCH -e mediq_run_err.txt
+#SBATCH --nodes=1
+#SBATCH -o logs/mediq_run_out_%j.txt
+#SBATCH -e logs/mediq_run_err_%j.txt
 #SBATCH --job-name=mediq_benchmark
 
 # ----------------------------
@@ -67,10 +68,11 @@ python src/mediQ_benchmark.py \
     --expert_model Qwen/Qwen3-4B-Instruct-2507 \
     --patient_module patient \
     --patient_model Qwen/Qwen3-4B-Instruct-2507 \
-    --self_consistency 2\
-    --max_tokens 1000\
+    --self_consistency 3\
+    --max_tokens 1500\
     --patient_class FactSelectPatient \
     --data_dir data \
+    --abstain_threshold 3\
     --dev_filename all_dev_good.jsonl \
     --output_filename outputs/mediq_results_$(date +%Y%m%d_%H%M%S).jsonl \
     --log_filename logs/mediq_log_$(date +%Y%m%d_%H%M%S).txt \

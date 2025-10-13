@@ -53,7 +53,7 @@ def main():
     num_processed = 0
     correct_history, timeout_history, turn_lengths = [], [], []
     
-    max_patients = 10
+    max_patients = 50
     for pid, sample in list(patient_data.items())[:max_patients]:
         if pid in processed_ids:
             print(f"Skipping patient {pid} as it has already been processed.")

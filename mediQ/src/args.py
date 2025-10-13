@@ -6,7 +6,7 @@ def get_args():
     parser.add_argument('--expert_module', type=str, default='expert', help='file name where the expert class is implemented.')
     parser.add_argument('--expert_class', type=str, required=True, help='Expert class name to use for the benchmark.')
     parser.add_argument('--expert_model', type=str, default='Qwen/Qwen3-0.6B', help='Expert model name to use for the benchmark, can be a local model or a Huggingface model.')
-    parser.add_argument('--expert_model_question_generator', type=str, default='Qwen/Qwen3-0.6B', help='You can set a separate model for the follow-up question generator, can be a local model or a Huggingface model.')
+    parser.add_argument('--expert_model_question_generator', type=str, default='Qwen/Qwen3-4B-Instruct-2507', help='You can set a separate model for the follow-up question generator, can be a local model or a Huggingface model.')
     
     parser.add_argument('--patient_module', type=str, default='patient', help='file name where the patient class is implemented.')
     parser.add_argument('--patient_class', type=str, required=True, help='Patient class name to use for the benchmark.')
@@ -26,7 +26,8 @@ def get_args():
 
     parser.add_argument('--rationale_generation', action='store_true', help='Generate rationales for the choices.')
     parser.add_argument('--self_consistency', type=int, default=1, help='Number of times to run the self-consistency check.')
-    parser.add_argument('--abstain_threshold', type=float, default=0.8, help='Threshold for abstaining from making a choice.')
+# --abstain_threshold default is 0.8
+    parser.add_argument('--abstain_threshold', type=float, default=3, help='Threshold for abstaining from making a choice.')
     parser.add_argument('--independent_modules', action='store_true', help='Cognitive modules within the Expert dont see previous convo.')
 
     parser.add_argument('--use_vllm', action='store_true', help='Use the VLLM model for generating responses.')
