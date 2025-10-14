@@ -17,4 +17,5 @@ MedRAG/corpus/pubmed/.git_disabled/
 mediQ/logs/
 .gitignore
 # prompts/
+.env
 

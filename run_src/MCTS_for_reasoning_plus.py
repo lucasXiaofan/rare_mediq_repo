@@ -4,6 +4,10 @@ import sys
 import requests
 
 sys.path.append(".")
+import os
+
+
+
 
 import numpy as np, os, random, json, math, wandb
 from tqdm import trange
@@ -201,6 +205,7 @@ class Generator:
             io_input,
             num_return=num_return,
             max_tokens=self.max_tokens,
+            # Lucas comments output the stop token cause it is too much (len of 18) for deepseek api to run, this could be helpful for local llm to run? but too rigid
             stop_tokens=self.fewshot_cot_config["stop_tokens"],
         )
         # import ipdb; ipdb.set_trace()
@@ -1767,6 +1772,7 @@ class Reasoning_MCTS_Node(MCTS_Node):
 
     def is_valid_solution_node(self):
         #! a valid solution can only be in SUBQUESTION type or DIRECT_ANSWER type or OST_STEP type
+        print(f"check the solution trace: {self.solution_trace}")
         return (
             (
                 self.node_type is Node_Type.SUBQUESTION

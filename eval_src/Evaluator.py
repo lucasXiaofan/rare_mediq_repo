@@ -3,7 +3,7 @@
 from eval_src.toolkit_for_MATH.latex_answer_check import latex_answer_check as latex_equiv
 
 import os, json, re
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 from collections import defaultdict
 import random
 from fuzzywuzzy import fuzz, process
@@ -59,12 +59,14 @@ class Evaluator:
         """Returns the most confident answer, its completion, its id in the input list, and its confidence."""
         if completions is None or len(completions) == 0:
             return None, None, None, None
-
+        print(f"current completions is {completions} ")
         answer2completions = defaultdict(list)
         answer2ids = defaultdict(list)
         for id, c in enumerate(completions):
             try:
-                model_answer = self.extract_intermediate_answer_from_model_completion(c)
+                # modified by Lucas, as RARE is not only for get answer 
+                # model_answer = self.extract_intermediate_answer_from_model_completion(c)
+                model_answer = c
                 has_existed = False
                 for existing_answer in answer2completions.keys():
                     if self.check_answers_equiv(model_answer, existing_answer):
@@ -574,6 +576,166 @@ class MedQAEvaluator(Evaluator):
             all_choices.append(option_pred)
         most_common_choice, freq = Counter(all_choices).most_common(1)[0]
         return options[most_common_choice], freq, all_choices
+
+
+class StructuredMedQAEvaluator(MedQAEvaluator):
+    """
+    Extension of MedQAEvaluator that can parse structured completions (e.g., JSON blocks)
+    to robustly extract multiple-choice answers and supporting metadata.
+    """
+
+    _CHOICE_REGEX = re.compile(r"(?i)\b(?:choice|final answer|selected option|answer)\s*[:=\-]\s*([A-E])\b")
+    _CONFIDENCE_REGEX = re.compile(r'(?i)\bconfidence\s*[:=\-]\s*"?([^"\n]+?)"?(?:\n|$)')
+
+    def __init__(self, options: Optional[Dict[str, str]] = None) -> None:
+        super().__init__()
+        self.set_active_options(options)
+
+    def set_active_options(self, options: Optional[Dict[str, str]]) -> None:
+        self.active_options: Dict[str, str] = options or {}
+
+    # ------------------------------------------------------------------ #
+    # Helper utilities
+    # ------------------------------------------------------------------ #
+    def _find_json_like_blocks(self, text: str) -> List[str]:
+        blocks = []
+        stack = []
+        start_idx = None
+        for idx, ch in enumerate(text):
+            if ch == "{":
+                if not stack:
+                    start_idx = idx
+                stack.append("{")
+            elif ch == "}":
+                if stack:
+                    stack.pop()
+                    if not stack and start_idx is not None:
+                        blocks.append(text[start_idx : idx + 1])
+                        start_idx = None
+        return blocks
+
+    def _load_json_block(self, block: str) -> Optional[Dict]:
+        try:
+            return json.loads(block)
+        except json.JSONDecodeError:
+            # Attempt a simple normalization by replacing single quotes with double quotes.
+            normalized = block.replace("'", '"')
+            try:
+                return json.loads(normalized)
+            except json.JSONDecodeError:
+                return None
+
+    def _extract_choice_from_text(self, text: str) -> Optional[str]:
+        if text is None:
+            return None
+        match = self._CHOICE_REGEX.search(text)
+        if match:
+            return match.group(1).upper()
+        return None
+
+    def _extract_choice_from_completion(self, completion: str) -> Optional[str]:
+        if completion is None:
+            return None
+
+        # 1. Try to parse JSON-like blocks
+        for block in self._find_json_like_blocks(completion):
+            data = self._load_json_block(block)
+            if isinstance(data, dict):
+                choice = (
+                    data.get("choice")
+                    or data.get("answer_choice")
+                    or data.get("selected_option")
+                    or data.get("answer")
+                )
+                if isinstance(choice, str) and choice.strip():
+                    return choice.strip()[0].upper()
+
+        # 2. Regex-based extraction
+        choice = self._extract_choice_from_text(completion)
+        if choice:
+            return choice
+
+        # 3. Fallback to parent extraction heuristics
+        fallback = super().extract_intermediate_answer_from_model_completion(completion)
+        if not fallback:
+            return None
+
+        # Try to read the first standalone letter
+        match = re.search(r"\b([A-E])\b", fallback.upper())
+        if match:
+            return match.group(1)
+
+        # Fuzzy match against provided options
+        if self.active_options:
+            best_option = None
+            best_score = -1
+            for key, option_text in self.active_options.items():
+                score = fuzz.ratio(fallback.lower(), option_text.lower())
+                if score > best_score:
+                    best_score = score
+                    best_option = key
+            if best_option:
+                return best_option
+        return None
+
+    def _extract_confidence(self, completion: str) -> Optional[str]:
+        if completion is None:
+            return None
+        match = self._CONFIDENCE_REGEX.search(completion)
+        if match:
+            return match.group(1).strip()
+
+        for block in self._find_json_like_blocks(completion):
+            data = self._load_json_block(block)
+            if isinstance(data, dict):
+                confidence = data.get("confidence") or data.get("confidence_rating")
+                if isinstance(confidence, str):
+                    return confidence.strip()
+        return None
+
+    def extract_structured_prediction(
+        self, completion: str, options: Optional[Dict[str, str]] = None
+    ) -> Dict[str, Optional[str]]:
+        """
+        Parse the completion into a structured dictionary containing:
+            - choice: letter A-E (if detected)
+            - answer_text: mapped option text when available
+            - confidence: extracted confidence rating if provided
+            - raw_answer: fallback textual answer for transparency
+        """
+        active_options = options or self.active_options
+        choice = self._extract_choice_from_completion(completion)
+        answer_text = None
+        if choice and active_options:
+            answer_text = active_options.get(choice)
+
+        if answer_text is None:
+            # Fallback to MedQAEvaluator behaviour
+            answer_text = super().extract_answer_from_model_completion(completion)
+
+        confidence = self._extract_confidence(completion)
+
+        return {
+            "choice": choice,
+            "answer_text": answer_text.strip() if isinstance(answer_text, str) else answer_text,
+            "confidence": confidence,
+            "raw_answer": completion,
+        }
+
+    # ------------------------------------------------------------------ #
+    # Overrides
+    # ------------------------------------------------------------------ #
+    def extract_answer_from_model_completion(self, completion: str):
+        structured = self.extract_structured_prediction(completion)
+        if structured["answer_text"]:
+            return structured["answer_text"]
+        return super().extract_answer_from_model_completion(completion)
+
+    def extract_intermediate_answer_from_model_completion(self, completion: str):
+        choice = self._extract_choice_from_completion(completion)
+        if choice:
+            return choice
+        return super().extract_intermediate_answer_from_model_completion(completion)
 
 
 class ChatDoctorEvaluator(Evaluator):

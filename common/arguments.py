@@ -11,7 +11,7 @@ def get_parser():
     parser.add_argument("--note", type=str, default="debug")
     parser.add_argument("--mode", type=str, default="run")
 
-    allowed_apis = ["together", "huggingface", "llama", "vllm", "debug", "gpt3.5-turbo"]
+    allowed_apis = ["together", "huggingface", "llama", "vllm", "debug", "gpt3.5-turbo", "deepseek"]
     parser.add_argument(
         "--api", type=str, choices=allowed_apis, default="vllm", help=f"API to use: Choose from {allowed_apis}."
     )
