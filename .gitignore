@@ -16,5 +16,5 @@ MedRAG/corpus/pubmed/.git_disabled/lfs/objects/
 MedRAG/corpus/pubmed/.git_disabled/
 mediQ/logs/
 .gitignore
-prompts/
+# prompts/
 
