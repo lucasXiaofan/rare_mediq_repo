@@ -125,7 +125,9 @@ class IO_System:
                 self.token_counter += 0
             elif self.api == "deepseek":
                 # DeepSeek API call
-                print(f"[IO_System.py] num of return: {num_return}")
+                
+                # lucas debug deepseek responsese
+                # print(f"[IO_System.py] finding decompose prompt: {model_input}[end prompt IO_System.py]")
                 deepseek_response = self._generate_with_deepseek(
                     prompt=model_input,
                     n=num_return,
@@ -135,6 +137,8 @@ class IO_System:
                     # stop=stop_tokens,
                 )
                 io_output_list = deepseek_response
+                print(f"[IO_System.py] deepseek respond : {deepseek_response}[end respond IO_System.py]")
+                
                 self.call_counter += num_return
                 self.token_counter += 0
             elif self.api == "debug":
@@ -205,7 +209,7 @@ class IO_System:
                         max_tokens=max_tokens,
                         temperature=self.temperature,
                         top_p=self.top_p,
-                        stop=stop_tokens,
+                        # stop=stop_tokens,
                     )
                     io_output_list.append(deepseek_response)
                     self.call_counter += num_return

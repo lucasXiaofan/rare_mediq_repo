@@ -7,10 +7,13 @@ import sys
 sys.path.append(".")
 
 import argparse
+import os
 from models.IO_System import IO_System
 from run_src.MCTS_backbone_verbose import MCTS_Searcher
 from run_src.MCTS_for_reasoning_plus import Generator, Reasoning_MCTS_Node, Node_Type
-from eval_src.Evaluator import Evaluator
+from run_src.MCTS_for_reasoning_plus import search_for_answers
+from eval_src.Evaluator import *
+from common.utils import read_json
 
 
 
@@ -38,11 +41,11 @@ def create_args_for_deepseek():
     # ============================================================================
     # MCTS Configuration (from shell script)
     # ============================================================================
-    args.num_rollouts = 1  # Just 1 for demo (shell script uses 4)
+    args.num_rollouts = 1 # Just 1 for demo (shell script uses 4)
     args.mcts_exploration_weight = 1.0
     args.mcts_weight_scheduler = "constant"
     args.mcts_discount_factor = 1.0
-    args.max_depth_allowed = 3
+    args.max_depth_allowed = 2
 
     # ============================================================================
     # Action Flags (from shell script)
@@ -137,6 +140,25 @@ def create_args_for_deepseek():
     return args
 
 
+def load_medqa_problem(args, index: int = 0):
+    """
+    Load a single MedQA problem from the dataset files.
+    """
+    if not hasattr(args, "data_root") or args.data_root is None:
+        args.data_root = "data"
+    dataset_path = os.path.join(
+        args.data_root,
+        args.dataset_name,
+        f"{args.test_json_filename}.json",
+    )
+    data = read_json(dataset_path)
+    if not data:
+        raise ValueError(f"No data found at {dataset_path}")
+    if index < 0 or index >= len(data):
+        raise IndexError(f"Requested index {index} is outside the dataset range (size={len(data)}).")
+    return data[index]
+
+
 def main():
     print("=" * 80)
     print("MCTS Reasoning with DeepSeek API - Mini Demo")
@@ -203,11 +225,81 @@ Think carefully step by step, respond with the chosen confidence rating ONLY and
     model = args.model_ckpt  # "deepseek-chat"
 
     # Initialize evaluator
-    evaluator = Evaluator()
+    # the code initialze the evaluator wrong 
+    evaluator = eval(f"{args.dataset_name}Evaluator()")
 
     # Initialize generator (handles LLM interactions via IO_System)
     generator = Generator(args, tokenizer, model, evaluator)
     print("   Generator initialized with DeepSeek API")
+
+    # ============================================================================
+    # New Step: Load a MedQA problem and run a single MCTS search
+    # ============================================================================
+    medqa_sample = load_medqa_problem(args, index=0)
+    formatted_question = medqa_sample.get("problem", "")
+    raw_options = medqa_sample.get("options", {})
+    if isinstance(raw_options, list):
+        options = {chr(ord("A") + idx): text for idx, text in enumerate(raw_options)}
+    else:
+        options = dict(raw_options)
+    gt_solution = medqa_sample.get("solution", "")
+    gold_choice = medqa_sample.get("answer")
+
+    print("\n" + "=" * 80)
+    print("MedQA Problem Overview")
+    print("=" * 80)
+    print(f"Question ID: {medqa_sample.get('id', 'N/A')}")
+    print("-" * 80)
+    print("Problem:")
+    print(formatted_question.strip())
+    print("-" * 80)
+    print("Options:")
+    for key, text in options.items():
+        print(f"  {key}: {text}")
+    if gt_solution:
+        print("-" * 80)
+        print("Reference Solution:")
+        print(gt_solution.strip())
+    if gold_choice:
+        print(f"\nGold Answer: {gold_choice} -> {options.get(gold_choice, 'Unknown option')}")
+    print(f"options are {options}")
+    print("\nRunning MCTS search on the MedQA sample...")
+    best_choice, freq_choice, choice_info, all_solution_nodes, all_solutions = search_for_answers(
+        args=args,
+        user_question=formatted_question,
+        question_id=0,
+        gt_answer=gt_solution,
+        generator=generator,
+        options=options,
+    )
+    print(f"what is all_solutions {all_solutions}")
+    print("\n" + "=" * 80)
+    print("MCTS Output")
+    print("=" * 80)
+    if best_choice:
+        print(f"Best Choice: {best_choice} -> {options.get(best_choice, 'Unknown option')}")
+    else:
+        print("Best Choice: None")
+    if freq_choice and freq_choice != best_choice:
+        print(f"Most Frequent Choice: {freq_choice} -> {options.get(freq_choice, 'Unknown option')}")
+    if choice_info:
+        for choice, info in choice_info.items():
+            count = info.get("count", 0)
+            score = info.get("score", 0)
+            print(f"- Choice {choice}: count={count}, cumulative_score={score}")
+            completions = info.get("completions") or []
+            if completions:
+                sample_completion = completions[-1].strip()
+                if len(sample_completion) > 300:
+                    sample_completion = sample_completion[:300] + "..."
+                print(f"  Sample Reasoning: {sample_completion}")
+    elif all_solution_nodes:
+        print(f"Found {len(all_solution_nodes)} solution nodes but no choice information.")
+    else:
+        print("No solution nodes were produced by the search.")
+
+    # Stop after running a single MedQA problem.
+    return
 
     # ============================================================================
     # Step 2: Initialize MCTS_Searcher

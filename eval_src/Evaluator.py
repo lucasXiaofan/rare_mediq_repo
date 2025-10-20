@@ -65,8 +65,9 @@ class Evaluator:
         for id, c in enumerate(completions):
             try:
                 # modified by Lucas, as RARE is not only for get answer 
-                # model_answer = self.extract_intermediate_answer_from_model_completion(c)
-                model_answer = c
+                model_answer = self.extract_intermediate_answer_from_model_completion(c)
+                print(f"input c for extract_intermediate_answer: {c}, output model_answer is {model_answer}")
+                # model_answer = c
                 has_existed = False
                 for existing_answer in answer2completions.keys():
                     if self.check_answers_equiv(model_answer, existing_answer):
@@ -79,6 +80,8 @@ class Evaluator:
                     answer2ids[model_answer].append(id)
             except:
                 pass
+        # Lucas trying to understand the most confident answer 
+        print(f"answer2completions: {answer2completions}")
         assert len(answer2completions.keys()) > 0, "There are no valid completions."
         if prior_weights is not None:
             assert len(completions) == len(prior_weights)
@@ -193,7 +196,9 @@ class Evaluator:
             confidence = 1.0 / len(completions)
             most_completion = completions[sample_index]
             return None, [most_completion], None, [confidence]
-        # assert len(answer2completions.keys()) > 0, "There are no valid completions."
+        # Lucas, debuging why final answer is none for deepseek
+        print(f"called find_most_confident_answer_with_options {answer2completions}")
+        assert len(answer2completions.keys()) > 0, "There are no valid completions."
         if prior_weights is not None:
             assert len(completions) == len(prior_weights)
             completion2count = {}
@@ -561,6 +566,9 @@ class MedQAEvaluator(Evaluator):
         answer = completion[start_idx+14:]
         if len(answer) > 1 and answer[-1] == ".":
             answer = answer[:-1]
+        
+        # Lucas comments, I highly doubt if this function is going to work
+        print(f"<extracted answer is>: {answer}")
         return answer
 
 

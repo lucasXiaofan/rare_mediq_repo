@@ -47,7 +47,7 @@ def reach_terminal_subquestion(subquestion: str, user_question: str):
     if "Now we can answer" in subquestion:
         #! remember that: when the original question is answerable, please start the subquestion with "Now we can answer the question: "
         return True
-
+    # Lucas comments this reach terminal subquestion is confusing
     user_question_2nd_part = split_user_question(user_question)[1]
     if user_question_2nd_part.lower() in subquestion.lower():
         return True
@@ -729,13 +729,19 @@ def stochastic_find_best_solution(
 
     if len(solution_nodes) == 0:
         return None, None, None, None, None
-
+    # Lucas trying to figure out why answer is none for deepseek
+    print(f"solution nodes {solution_nodes}")
+    
     def extract_solution_from_node(node):
         if node.node_type is Node_Type.SUBQUESTION:
+            # lucas trying to figure out why answer is none for deepseek
+            print(f"extract_solution: {node.subanswer}")
             return node.subanswer
         elif node.node_type is Node_Type.DIRECT_ANSWER or node.node_type is Node_Type.DIRECT_ANSWER_RAG:
+            print(f"extract_solution: {node.direct_answer}")
             return node.direct_answer
         else:
+            print(f"Node type is : {node.node_type}, no solution")
             return None
 
     solutions = [extract_solution_from_node(node) for node in solution_nodes]

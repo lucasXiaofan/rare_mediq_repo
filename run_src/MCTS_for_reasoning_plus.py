@@ -715,7 +715,6 @@ class Generator:
                 is_final_question = True
                 io_input_list = [io_input]
                 break
-
         if is_final_question:
             num_return = self.mcts_num_last_votes
             subquestion_list = [subquestion]
@@ -735,6 +734,7 @@ class Generator:
         cleaned_io_output_list = [
             [io_output.strip() for io_output in io_output_group] for io_output_group in io_output_list
         ]
+        print(f"generate_subquestions check if cleaned_io_output_list make it wrong {cleaned_io_output_list}")
         # import ipdb; ipdb.set_trace()
         for i, cleaned_io_output_group in enumerate(cleaned_io_output_list):
             try:
@@ -1772,7 +1772,7 @@ class Reasoning_MCTS_Node(MCTS_Node):
 
     def is_valid_solution_node(self):
         #! a valid solution can only be in SUBQUESTION type or DIRECT_ANSWER type or OST_STEP type
-        print(f"check the solution trace: {self.solution_trace}")
+
         return (
             (
                 self.node_type is Node_Type.SUBQUESTION
