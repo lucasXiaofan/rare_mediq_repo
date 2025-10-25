@@ -1,0 +1,10 @@
+[2025-10-25 14:02:25,057] [INFO] Processed 1/10 patients | Accuracy: 1.0
+[2025-10-25 14:02:39,720] [INFO] Processed 2/10 patients | Accuracy: 1.0
+[2025-10-25 14:02:55,501] [INFO] Processed 3/10 patients | Accuracy: 0.6666666666666666
+[2025-10-25 14:03:00,994] [INFO] Processed 4/10 patients | Accuracy: 0.75
+[2025-10-25 14:03:15,671] [INFO] Processed 5/10 patients | Accuracy: 0.8
+[2025-10-25 14:04:10,207] [INFO] Processed 6/10 patients | Accuracy: 0.8333333333333334
+[2025-10-25 14:04:16,278] [INFO] Processed 7/10 patients | Accuracy: 0.7142857142857143
+[2025-10-25 14:04:21,151] [INFO] Processed 8/10 patients | Accuracy: 0.625
+[2025-10-25 14:04:38,008] [INFO] Processed 9/10 patients | Accuracy: 0.6666666666666666
+[2025-10-25 14:04:50,912] [INFO] Processed 10/10 patients | Accuracy: 0.6

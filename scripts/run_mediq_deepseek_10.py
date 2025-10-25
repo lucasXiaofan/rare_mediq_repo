@@ -21,10 +21,10 @@ def write_subset(src_path: Path, dest_path: Path, limit: int) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="Run MediQ benchmark on N patients using DeepSeek.")
-    parser.add_argument("--num_patients", type=int, default=10, help="How many patients to evaluate.")
+    parser.add_argument("--num_patients", type=int, default=3, help="How many patients to evaluate.")
     parser.add_argument("--model_name", type=str, default="deepseek-chat", help="DeepSeek model id.")
-    parser.add_argument("--data_dir", type=Path, default=Path("data"), help="Directory containing the dev jsonl file.")
-    parser.add_argument("--dev_filename", type=str, default=r"C:\Users\LangZheZR\Desktop\umass_nlp_research\rare_mediq_repo\mediQ\data\all_dev_good.jsonl", help="Original dev split filename.")
+    parser.add_argument("--data_dir", type=Path, default=Path("mediQ") / "data", help="Directory containing the dev jsonl file.")
+    parser.add_argument("--dev_filename", type=str, default="all_dev_good.jsonl", help="Original dev split filename.")
     parser.add_argument("--output_dir", type=Path, default=Path("outputs"), help="Directory for benchmark outputs.")
     parser.add_argument("--log_dir", type=Path, default=Path("logs"), help="Directory for logs.")
     parser.add_argument(
@@ -37,7 +37,9 @@ def main():
 
     repo_root = Path(__file__).resolve().parents[1]
     mediq_src = repo_root / "mediQ" / "src"
-    data_path = args.data_dir / args.dev_filename
+    data_dir = args.data_dir if args.data_dir.is_absolute() else repo_root / args.data_dir
+    dev_filename = Path(args.dev_filename)
+    data_path = dev_filename if dev_filename.is_absolute() else data_dir / dev_filename
 
     if not data_path.exists():
         raise FileNotFoundError(f"Cannot find data file: {data_path}")
@@ -58,6 +60,7 @@ def main():
     detail_log = args.log_dir / f"mediq_deepseek_detail_{timestamp}.log"
     message_log = args.log_dir / f"mediq_deepseek_messages_{timestamp}.log"
 
+    benchmark_data_dir = subset_path.parent
     cmd = [
         args.python_exec,
         str(mediq_src / "mediQ_benchmark.py"),
@@ -76,7 +79,7 @@ def main():
         "--patient_model",
         args.model_name,
         "--data_dir",
-        str(args.data_dir),
+        str(benchmark_data_dir),
         "--dev_filename",
         subset_path.name,
         "--output_filename",
@@ -98,7 +101,7 @@ def main():
         "--top_p",
         "0.9",
         "--self_consistency",
-        "3",
+        "1",
         "--abstain_threshold",
         "3",
         "--use_api",

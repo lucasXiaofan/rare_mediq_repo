@@ -31,12 +31,13 @@ def get_args():
     parser.add_argument('--independent_modules', action='store_true', help='Cognitive modules within the Expert dont see previous convo.')
 
     parser.add_argument('--use_vllm', action='store_true', help='Use the VLLM model for generating responses.')
-    parser.add_argument('--use_api', type=str, default=None, help='Use an API for generating responses.', choices=['openai']) # compatible with the OpenAI API for now
+    parser.add_argument('--use_api', type=str, default=None, help='Use an API for generating responses.', choices=['openai', 'deepseek']) # compatible with OpenAI-style APIs
     parser.add_argument('--temperature', type=float, default=0.6, help='Temperature for sampling from the model.')
     parser.add_argument('--top_p', type=float, default=0.9, help='Top p value for nucleus sampling.')
     parser.add_argument('--max_tokens', type=int, default=256, help='Maximum number of tokens to generate.')
     parser.add_argument('--top_logprobs', type=int, default=0, help='Number of top logprobs to return.')
     parser.add_argument('--api_account', type=str, default="mediQ", help='API keys are stored in keys.py, api_account is the name of the key.')
+    parser.add_argument('--api_base_url', type=str, default=None, help='Optional base URL override for OpenAI-compatible APIs.')
     
     args =  parser.parse_args()
 

@@ -1,0 +1,27 @@
+[2025-10-25 14:31:55,109] [INFO] |||||||||||||||||||| PATIENT #0 ||||||||||||||||||||
+[2025-10-25 14:31:55,110] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:31:59,203] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'C', 'confidence': 5.0, 'usage': {'input_tokens': 702, 'output_tokens': 4}}
+[2025-10-25 14:31:59,203] [INFO] |||||||||||||||||||| Interaction ended for patient #0 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:31:59,206] [INFO] |||||||||||||||||||| PATIENT #1 ||||||||||||||||||||
+[2025-10-25 14:31:59,207] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:32:03,208] [INFO] [Expert System]: {'type': 'question', 'question': 'How long has it been since the vomiting episodes started recurring?', 'letter_choice': 'B', 'confidence': 2.0, 'usage': {'input_tokens': 1340, 'output_tokens': 23}}
+[2025-10-25 14:32:05,364] [INFO] [Patient System]: The vomiting episodes have been recurring for the past 6 months.
+[2025-10-25 14:32:05,364] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:32:08,259] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'A', 'confidence': 4.0, 'usage': {'input_tokens': 748, 'output_tokens': 5}}
+[2025-10-25 14:32:08,259] [INFO] |||||||||||||||||||| Interaction ended for patient #1 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:32:08,271] [INFO] |||||||||||||||||||| PATIENT #2 ||||||||||||||||||||
+[2025-10-25 14:32:08,272] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:32:13,786] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you been experiencing persistent feelings of sadness, hopelessness, or loss of interest in activities you used to enjoy?', 'letter_choice': 'D', 'confidence': 2.0, 'usage': {'input_tokens': 1328, 'output_tokens': 34}}
+[2025-10-25 14:32:15,358] [INFO] [Patient System]: Yes.
+[2025-10-25 14:32:15,358] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:32:18,138] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'B', 'confidence': 4.0, 'usage': {'input_tokens': 740, 'output_tokens': 5}}
+[2025-10-25 14:32:18,138] [INFO] |||||||||||||||||||| Interaction ended for patient #2 ||||||||||||||||||||
+
+
+

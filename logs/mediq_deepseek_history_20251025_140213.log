@@ -1,0 +1,100 @@
+[2025-10-25 14:02:18,408] [INFO] |||||||||||||||||||| PATIENT #0 ||||||||||||||||||||
+[2025-10-25 14:02:18,411] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:02:25,055] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'C', 'confidence': 5.0, 'usage': {'input_tokens': 1618, 'output_tokens': 10}}
+[2025-10-25 14:02:25,055] [INFO] |||||||||||||||||||| Interaction ended for patient #0 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:02:25,057] [INFO] |||||||||||||||||||| PATIENT #1 ||||||||||||||||||||
+[2025-10-25 14:02:25,059] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:02:32,703] [INFO] [Expert System]: {'type': 'question', 'question': 'How long has it been since the vomiting episodes started occurring?', 'letter_choice': 'B', 'confidence': 2.0, 'usage': {'input_tokens': 2244, 'output_tokens': 33}}
+[2025-10-25 14:02:34,350] [INFO] [Patient System]: The vomiting episodes have been occurring for the past 6 months.
+[2025-10-25 14:02:34,350] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:02:39,712] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'A', 'confidence': 4.0, 'usage': {'input_tokens': 1710, 'output_tokens': 13}}
+[2025-10-25 14:02:39,712] [INFO] |||||||||||||||||||| Interaction ended for patient #1 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:02:39,720] [INFO] |||||||||||||||||||| PATIENT #2 ||||||||||||||||||||
+[2025-10-25 14:02:39,721] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:02:47,606] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you been experiencing persistent feelings of sadness, hopelessness, or loss of interest in activities you once enjoyed?', 'letter_choice': 'D', 'confidence': 2.0, 'usage': {'input_tokens': 2224, 'output_tokens': 43}}
+[2025-10-25 14:02:49,026] [INFO] [Patient System]: Yes.
+[2025-10-25 14:02:49,026] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:02:55,492] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'B', 'confidence': 4.0, 'usage': {'input_tokens': 1690, 'output_tokens': 13}}
+[2025-10-25 14:02:55,492] [INFO] |||||||||||||||||||| Interaction ended for patient #2 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:02:55,501] [INFO] |||||||||||||||||||| PATIENT #3 ||||||||||||||||||||
+[2025-10-25 14:02:55,502] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:03:00,986] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'B', 'confidence': 4.333333333333333, 'usage': {'input_tokens': 1662, 'output_tokens': 12}}
+[2025-10-25 14:03:00,986] [INFO] |||||||||||||||||||| Interaction ended for patient #3 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:03:00,995] [INFO] |||||||||||||||||||| PATIENT #4 ||||||||||||||||||||
+[2025-10-25 14:03:00,995] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:03:08,391] [INFO] [Expert System]: {'type': 'question', 'question': 'When did the confusion and speech difficulty start?', 'letter_choice': 'A', 'confidence': 1.3333333333333333, 'usage': {'input_tokens': 2158, 'output_tokens': 28}}
+[2025-10-25 14:03:09,708] [INFO] [Patient System]: A few hours ago.
+[2025-10-25 14:03:09,708] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:03:15,657] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'A', 'confidence': 4.0, 'usage': {'input_tokens': 1598, 'output_tokens': 13}}
+[2025-10-25 14:03:15,657] [INFO] |||||||||||||||||||| Interaction ended for patient #4 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:03:15,672] [INFO] |||||||||||||||||||| PATIENT #5 ||||||||||||||||||||
+[2025-10-25 14:03:15,673] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:03:22,277] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you noticed any changes in your menstrual bleeding, such as heavier or longer periods?', 'letter_choice': 'C', 'confidence': 2.0, 'usage': {'input_tokens': 2194, 'output_tokens': 38}}
+[2025-10-25 14:03:24,034] [INFO] [Patient System]: The patient cannot answer this question, please do not ask this question again.
+[2025-10-25 14:03:24,034] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:03:31,835] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you noticed any changes in your bowel habits, such as black or tarry stools?', 'letter_choice': 'C', 'confidence': 2.0, 'usage': {'input_tokens': 2374, 'output_tokens': 39}}
+[2025-10-25 14:03:34,350] [INFO] [Patient System]: The patient cannot answer this question, please do not ask this question again.
+[2025-10-25 14:03:34,350] [INFO] ==================== Turn 3 ====================
+[2025-10-25 14:03:42,070] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you noticed any changes in your diet or appetite recently?', 'letter_choice': 'C', 'confidence': 2.0, 'usage': {'input_tokens': 2569, 'output_tokens': 33}}
+[2025-10-25 14:03:43,537] [INFO] [Patient System]: The patient cannot answer this question, please do not ask this question again.
+[2025-10-25 14:03:43,537] [INFO] ==================== Turn 4 ====================
+[2025-10-25 14:03:52,531] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you noticed any numbness, tingling, or burning sensations in your hands or feet?', 'letter_choice': 'C', 'confidence': 2.0, 'usage': {'input_tokens': 2734, 'output_tokens': 39}}
+[2025-10-25 14:03:54,681] [INFO] [Patient System]: The patient cannot answer this question, please do not ask this question again.
+[2025-10-25 14:03:54,681] [INFO] ==================== Turn 5 ====================
+[2025-10-25 14:04:02,130] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you had any blood tests done recently, and if so, what were the results?', 'letter_choice': 'C', 'confidence': 2.0, 'usage': {'input_tokens': 2929, 'output_tokens': 39}}
+[2025-10-25 14:04:04,673] [INFO] [Patient System]: Yes, the patient had a complete blood count which showed a hematocrit of 27.1%, MCV of 79 fL, and a reticulocyte count of 2.0%.
+[2025-10-25 14:04:04,673] [INFO] ==================== Turn 6 ====================
+[2025-10-25 14:04:10,194] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'C', 'confidence': 4.0, 'usage': {'input_tokens': 2402, 'output_tokens': 13}}
+[2025-10-25 14:04:10,194] [INFO] |||||||||||||||||||| Interaction ended for patient #5 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:04:10,207] [INFO] |||||||||||||||||||| PATIENT #6 ||||||||||||||||||||
+[2025-10-25 14:04:10,208] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:04:16,268] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'C', 'confidence': 4.0, 'usage': {'input_tokens': 1670, 'output_tokens': 13}}
+[2025-10-25 14:04:16,268] [INFO] |||||||||||||||||||| Interaction ended for patient #6 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:04:16,280] [INFO] |||||||||||||||||||| PATIENT #7 ||||||||||||||||||||
+[2025-10-25 14:04:16,281] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:04:21,142] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'D', 'confidence': 3.3333333333333335, 'usage': {'input_tokens': 1562, 'output_tokens': 14}}
+[2025-10-25 14:04:21,142] [INFO] |||||||||||||||||||| Interaction ended for patient #7 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:04:21,152] [INFO] |||||||||||||||||||| PATIENT #8 ||||||||||||||||||||
+[2025-10-25 14:04:21,153] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:04:30,221] [INFO] [Expert System]: {'type': 'question', 'question': 'How long have you been experiencing difficulty walking?', 'letter_choice': 'D', 'confidence': 2.0, 'usage': {'input_tokens': 2299, 'output_tokens': 30}}
+[2025-10-25 14:04:31,580] [INFO] [Patient System]: The patient has been experiencing difficulty walking over the last year.
+[2025-10-25 14:04:31,580] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:04:38,000] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'A', 'confidence': 4.0, 'usage': {'input_tokens': 1738, 'output_tokens': 13}}
+[2025-10-25 14:04:38,000] [INFO] |||||||||||||||||||| Interaction ended for patient #8 ||||||||||||||||||||
+
+
+
+[2025-10-25 14:04:38,008] [INFO] |||||||||||||||||||| PATIENT #9 ||||||||||||||||||||
+[2025-10-25 14:04:38,010] [INFO] ==================== Turn 1 ====================
+[2025-10-25 14:04:44,663] [INFO] [Expert System]: {'type': 'question', 'question': 'What is your current blood pressure reading?', 'letter_choice': 'C', 'confidence': 1.0, 'usage': {'input_tokens': 2193, 'output_tokens': 26}}
+[2025-10-25 14:04:46,039] [INFO] [Patient System]: 147/98 mmHg
+[2025-10-25 14:04:46,039] [INFO] ==================== Turn 2 ====================
+[2025-10-25 14:04:50,902] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'C', 'confidence': 4.0, 'usage': {'input_tokens': 1626, 'output_tokens': 13}}
+[2025-10-25 14:04:50,902] [INFO] |||||||||||||||||||| Interaction ended for patient #9 ||||||||||||||||||||
+
+
+

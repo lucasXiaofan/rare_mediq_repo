@@ -25,13 +25,22 @@ class ModelCache:
         self.terminators = None
         self.client = None
         self.args = kwargs
+        self.api_account = self.args.get("api_account", "mediQ")
+        self.api_base_url = self.args.get("api_base_url", None)
         self.load_model_and_tokenizer()
     
     def load_model_and_tokenizer(self):
-        if self.use_api == "openai":
+        if self.use_api in {"openai", "deepseek"}:
             from openai import OpenAI
-            self.api_account = self.args.get("api_account", "openai")
-            self.client = OpenAI(api_key=mykey[self.api_account]) # Setup API key appropriately in keys.py
+            if self.api_account not in mykey:
+                raise KeyError(f"API account '{self.api_account}' not found in keys.py")
+            client_kwargs = {"api_key": mykey[self.api_account]}
+            base_url = self.api_base_url
+            if self.use_api == "deepseek":
+                client_kwargs["base_url"] = base_url or "https://api.deepseek.com"
+            elif base_url:
+                client_kwargs["base_url"] = base_url
+            self.client = OpenAI(**client_kwargs)  # Setup API client appropriately in keys.py
         elif self.use_vllm:
             try:
                 from vllm import LLM
@@ -45,7 +54,7 @@ class ModelCache:
             except Exception as e:
                 log_info(f"[ERROR] [{self.model_name}]: If using a custom local model, it is not compatible with VLLM, will load using Huggingfcae and you can ignore this error: {str(e)}", mode="error")
                 self.use_vllm = False
-        if not self.use_vllm and self.use_api != "openai":
+        if not self.use_vllm and self.use_api not in {"openai", "deepseek"}:
             from transformers import AutoModelForCausalLM, AutoTokenizer
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
             self.model = AutoModelForCausalLM.from_pretrained(self.model_name)
@@ -58,13 +67,17 @@ class ModelCache:
         log_info(f"[{self.model_name}][INPUT]: {messages}")
 
         self.temperature = self.args.get("temperature", 0.6)
-        self.max_tokens = self.args.get("max_tokens", 256)
+        self.max_tokens = self.args.get("max_length", self.args.get("max_tokens", 256))
         self.top_p = self.args.get("top_p", 0.9)
         self.top_logprobs = self.args.get("top_logprobs", 0)
 
-        if self.use_api == "openai": self.openai_generate(messages)
-        elif self.use_vllm: return self.vllm_generate(messages)
-        else: return self.huggingface_generate(messages)
+        if self.use_api == "openai":
+            return self.openai_generate(messages)
+        if self.use_api == "deepseek":
+            return self.deepseek_generate(messages)
+        if self.use_vllm:
+            return self.vllm_generate(messages)
+        return self.huggingface_generate(messages)
     
     def huggingface_generate(self, messages):
         try:
@@ -119,32 +132,55 @@ class ModelCache:
         return response_text, logprobs, usage
 
     def openai_generate(self, messages):
-        if self.top_logprobs == 0:
-            response = self.client.chat.completions.create(
-                        model=self.model_name,
-                        messages=messages,
-                        temperature=self.temperature,
-                        max_tokens=self.max_tokens,
-                        top_p=self.top_p
-                    )
-        else:
-            response = self.client.chat.completions.create(
-                        model=self.model_name,
-                        messages=messages,
-                        temperature=self.temperature,
-                        max_tokens=self.max_tokens,
-                        top_p=self.top_p,
-                        logprobs=True, 
-                        top_logprobs=self.top_logprobs
-                    )
-        
-        num_input_tokens = response["usage"]["prompt_tokens"]
-        num_output_tokens = response["usage"]["completion_tokens"]
-        response_text = response.choices[0].text.strip()
-        log_probs = response.choices[0].logprobs.top_logprobs if self.top_logprobs > 0 else None
-        
+        params = {
+            "model": self.model_name,
+            "messages": messages,
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens,
+            "top_p": self.top_p,
+        }
+        if self.top_logprobs > 0:
+            params["logprobs"] = True
+            params["top_logprobs"] = self.top_logprobs
+        response = self.client.chat.completions.create(**params)
+        response_text, log_probs = self._extract_completion(response)
+        usage = self._extract_usage(response)
         log_info(f"[{self.model_name}][OUTPUT]: {response}")
-        return response_text, log_probs, {"input_tokens": num_input_tokens, "output_tokens": num_output_tokens}
+        return response_text, log_probs, usage
+
+    def deepseek_generate(self, messages):
+        params = {
+            "model": self.model_name,
+            "messages": messages,
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens,
+            "top_p": self.top_p,
+        }
+        if self.top_logprobs > 0:
+            log_info(f"[{self.model_name}] DeepSeek API does not support logprobs; ignoring top_logprobs={self.top_logprobs}", mode="warning")
+        response = self.client.chat.completions.create(**params)
+        response_text, _ = self._extract_completion(response)
+        usage = self._extract_usage(response)
+        log_info(f"[{self.model_name}][OUTPUT][DeepSeek]: {response_text}")
+        return response_text, None, usage
+
+    def _extract_completion(self, response):
+        choice = response.choices[0]
+        if hasattr(choice, "message") and getattr(choice.message, "content", None):
+            response_text = choice.message.content.strip()
+        else:
+            response_text = getattr(choice, "text", "").strip()
+        log_probs = getattr(choice, "logprobs", None)
+        return response_text, log_probs
+
+    def _extract_usage(self, response):
+        usage = getattr(response, "usage", None)
+        if usage is None:
+            return {"input_tokens": 0, "output_tokens": 0}
+        return {
+            "input_tokens": getattr(usage, "prompt_tokens", 0),
+            "output_tokens": getattr(usage, "completion_tokens", 0)
+        }
 
 
 def get_response(messages, model_name, use_vllm=False, use_api=None, **kwargs):

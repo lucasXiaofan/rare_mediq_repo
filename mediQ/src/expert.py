@@ -32,7 +32,8 @@ class Expert:
             "max_tokens": self.args.max_tokens,
             "top_p": self.args.top_p,
             "top_logprobs": self.args.top_logprobs,
-            "api_account": self.args.api_account
+            "api_account": self.args.api_account,
+            "api_base_url": self.args.api_base_url,
         }
         return expert_functions.question_generation(**kwargs)
     
@@ -52,7 +53,8 @@ class Expert:
             "max_tokens": self.args.max_tokens,
             "top_p": self.args.top_p,
             "top_logprobs": self.args.top_logprobs,
-            "api_account": self.args.api_account
+            "api_account": self.args.api_account,
+            "api_base_url": self.args.api_base_url,
         }
         return kwargs
 

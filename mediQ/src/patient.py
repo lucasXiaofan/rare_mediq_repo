@@ -29,6 +29,8 @@ class Patient:
         self.max_length = 50  # Maximum length of the response (different from the expert system)
         self.use_vllm = args.use_vllm  
         self.use_api = args.use_api  # Use an API to generate responses
+        self.api_account = args.api_account
+        self.api_base_url = getattr(args, "api_base_url", None)
 
     def update_state(self, question, answer):
         # Update the internal history with the new question and the corresponding answer
@@ -51,7 +53,15 @@ class Patient:
     
     def get_response(self, messages, max_length=None):
         if max_length is None: max_length = self.max_length
-        return get_response(messages, self.model_name, use_vllm=self.use_vllm, use_api=self.use_api, max_length=max_length)
+        return get_response(
+            messages,
+            self.model_name,
+            use_vllm=self.use_vllm,
+            use_api=self.use_api,
+            max_length=max_length,
+            api_account=self.api_account,
+            api_base_url=self.api_base_url,
+        )
     
     def respond(self, question):
         raise NotImplementedError
