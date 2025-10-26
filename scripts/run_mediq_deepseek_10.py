@@ -21,7 +21,7 @@ def write_subset(src_path: Path, dest_path: Path, limit: int) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="Run MediQ benchmark on N patients using DeepSeek.")
-    parser.add_argument("--num_patients", type=int, default=3, help="How many patients to evaluate.")
+    parser.add_argument("--num_patients", type=int, default=5, help="How many patients to evaluate.")
     parser.add_argument("--model_name", type=str, default="deepseek-chat", help="DeepSeek model id.")
     parser.add_argument("--data_dir", type=Path, default=Path("mediQ") / "data", help="Directory containing the dev jsonl file.")
     parser.add_argument("--dev_filename", type=str, default="all_dev_good.jsonl", help="Original dev split filename.")
@@ -67,7 +67,7 @@ def main():
         "--expert_module",
         "expert",
         "--expert_class",
-        "ScaleExpert",
+        "RareMethod1LucasVer", #ScaleExpert
         "--expert_model",
         args.model_name,
         "--expert_model_question_generator",
@@ -119,3 +119,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

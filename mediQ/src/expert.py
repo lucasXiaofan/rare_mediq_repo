@@ -2,6 +2,7 @@ import random
 import importlib
 import logging
 import expert_functions
+from deepseek_inference_wrapper import DeepseekMediqInferenceWrapper
 
 class Expert:
     """
@@ -229,67 +230,60 @@ class ScaleExpert(Expert):
         }
 
 
-class RareExpert(Expert):
-    """Expert that routes decisions through the RARe search procedure."""
-
+class RareMethod1LucasVer(Expert):
+    """
+    answer paitent's question directly with mcts without question asking
+    """
     def __init__(self, args, inquiry, options):
         super().__init__(args, inquiry, options)
-        self.rare_helper = expert_functions.get_or_create_rare_helper(args)
-        self.pending_questions = []
-        self.asked_questions = set()
-        self.cached_plan = None
-        self.latest_usage = {"input_tokens": 0, "output_tokens": 0}
-        self.last_history_len = -1
-        self.default_choice = next(iter(options.keys())) if options else None
-
-    def _refresh_plan(self, patient_state):
-        max_followups = getattr(self.args, "max_questions", None)
-        self.cached_plan = expert_functions.rare_abstention_decision(
-            rare_helper=self.rare_helper,
-            patient_state=patient_state,
-            inquiry=self.inquiry,
-            options_dict=self.options,
-            abstain_threshold=self.args.abstain_threshold,
-            asked_questions=self.asked_questions,
-            max_followups=max_followups,
+        num_rollouts = getattr(args, "deepseek_num_rollouts", 1)
+        dataset_name = getattr(args, "deepseek_evaluator", "MedQA")
+        prompts_root = getattr(args, "deepseek_prompts_root", 'prompts')
+        data_root = getattr(args, "deepseek_data_root", None)
+        model_ckpt = getattr(args, "deepseek_model_ckpt", "deepseek-chat")
+        self.deepseek_wrapper = DeepseekMediqInferenceWrapper(
+            options_dict=options,
+            num_rollouts=num_rollouts,
+            dataset_name=dataset_name,
+            model_ckpt=model_ckpt,
+            prompts_root=prompts_root,
+            data_root=data_root,
         )
-        self.pending_questions = list(self.cached_plan.get("followup_questions", []))
-        self.latest_usage = dict(self.cached_plan.get("usage", {"input_tokens": 0, "output_tokens": 0}))
-        self.last_history_len = len(patient_state.get("interaction_history", []))
-        if not self.cached_plan.get("letter_choice") and self.default_choice:
-            self.cached_plan["letter_choice"] = self.default_choice
+        self.logger = logging.getLogger("detail_logger")
 
     def respond(self, patient_state):
-        history_len = len(patient_state.get("interaction_history", []))
-        needs_plan = (
-            self.cached_plan is None
-            or history_len != self.last_history_len
-            or (self.cached_plan.get("abstain") and not self.pending_questions)
+        formatted_prompt = self.deepseek_wrapper.format_question(self.inquiry, patient_state,self.options)
+        result = self.deepseek_wrapper.run(
+            user_prompt=formatted_prompt,
+            num_rollouts=getattr(self.args, "deepseek_num_rollouts", None),
+            evaluator_name=getattr(self.args, "deepseek_evaluator", None),
         )
+        if result.get("error"):
+            if self.logger:
+                self.logger.warning("[DeepseekMCTSExpert] Wrapper error: %s", result["error"])
+            # return self._fallback_response(patient_state)
 
-        if needs_plan:
-            self._refresh_plan(patient_state)
-
-        letter_choice = self.cached_plan.get("letter_choice") if self.cached_plan else None
-        if letter_choice is None and self.default_choice is not None:
-            letter_choice = self.default_choice
-
-        confidence = self.cached_plan.get("confidence", 0.0) if self.cached_plan else 0.0
-
-        if self.cached_plan and self.cached_plan.get("abstain") and self.pending_questions:
-            question = self.pending_questions.pop(0)
-            self.asked_questions.add(question)
-            return {
-                "type": "question",
-                "question": question,
-                "letter_choice": letter_choice,
-                "confidence": confidence,
-                "usage": self.latest_usage,
-            }
+        choice = result.get("best_choice") or result.get("freq_choice")
+        print(f"mcts return is result {result}")
+        if not choice:
+            if self.logger:
+                self.logger.warning("[DeepseekMCTSExpert] No choice returned, falling back to implicit expert.")
+            # return self._fallback_response(patient_state)
+        usage = result.get("usage", {"input_tokens": 0, "output_tokens": 0})
 
         return {
             "type": "choice",
-            "letter_choice": letter_choice,
-            "confidence": confidence,
-            "usage": self.latest_usage,
+            "letter_choice": choice,
+            "confidence": 'very confident',
+            "usage": usage,
         }
+
+    def _fallback_response(self, patient_state):
+        """Fallback to the implicit abstention expert if DeepSeek fails."""
+        basic = BasicExpert(self.args, self.inquiry, self.options)
+        return basic.respond(patient_state)
+
+
+
+
+    

@@ -1,0 +1,33 @@
+[2025-10-26 16:06:12,437] [INFO] |||||||||||||||||||| PATIENT #0 ||||||||||||||||||||
+[2025-10-26 16:06:12,438] [INFO] ==================== Turn 1 ====================
+[2025-10-26 16:06:17,033] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'C', 'confidence': 5.0, 'usage': {'input_tokens': 702, 'output_tokens': 4}}
+[2025-10-26 16:06:17,033] [INFO] |||||||||||||||||||| Interaction ended for patient #0 ||||||||||||||||||||
+
+
+
+[2025-10-26 16:06:17,034] [INFO] |||||||||||||||||||| PATIENT #1 ||||||||||||||||||||
+[2025-10-26 16:06:17,036] [INFO] ==================== Turn 1 ====================
+[2025-10-26 16:06:21,829] [INFO] [Expert System]: {'type': 'question', 'question': 'How long has it been between the episodes of nausea and vomiting?', 'letter_choice': 'B', 'confidence': 2.0, 'usage': {'input_tokens': 1340, 'output_tokens': 24}}
+[2025-10-26 16:06:23,649] [INFO] [Patient System]: The patient feels well between these episodes.
+[2025-10-26 16:06:23,649] [INFO] ==================== Turn 2 ====================
+[2025-10-26 16:06:27,097] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'A', 'confidence': 4.0, 'usage': {'input_tokens': 740, 'output_tokens': 5}}
+[2025-10-26 16:06:27,097] [INFO] |||||||||||||||||||| Interaction ended for patient #1 ||||||||||||||||||||
+
+
+
+[2025-10-26 16:06:27,099] [INFO] |||||||||||||||||||| PATIENT #2 ||||||||||||||||||||
+[2025-10-26 16:06:27,100] [INFO] ==================== Turn 1 ====================
+[2025-10-26 16:06:30,164] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'D', 'confidence': 4.0, 'usage': {'input_tokens': 682, 'output_tokens': 5}}
+[2025-10-26 16:06:30,164] [INFO] |||||||||||||||||||| Interaction ended for patient #2 ||||||||||||||||||||
+
+
+
+[2025-10-26 16:06:30,175] [INFO] |||||||||||||||||||| PATIENT #3 ||||||||||||||||||||
+[2025-10-26 16:06:30,176] [INFO] ==================== Turn 1 ====================
+[2025-10-26 16:06:33,757] [INFO] [Expert System]: {'type': 'choice', 'letter_choice': 'B', 'confidence': 4.0, 'usage': {'input_tokens': 724, 'output_tokens': 5}}
+[2025-10-26 16:06:33,757] [INFO] |||||||||||||||||||| Interaction ended for patient #3 ||||||||||||||||||||
+
+
+
+[2025-10-26 16:06:33,775] [INFO] |||||||||||||||||||| PATIENT #4 ||||||||||||||||||||
+[2025-10-26 16:06:33,776] [INFO] ==================== Turn 1 ====================

@@ -1,0 +1,73 @@
+[2025-10-26 15:03:29,669] [INFO] |||||||||||||||||||| PATIENT #0 ||||||||||||||||||||
+[2025-10-26 15:03:29,672] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:04:13,694] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'C', 'confidence': 1.0, 'usage': {'input_tokens': 283, 'output_tokens': 1}}
+[2025-10-26 15:04:13,694] [INFO] |||||||||||||||||||| Interaction ended for patient #0 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:04:13,696] [INFO] |||||||||||||||||||| PATIENT #1 ||||||||||||||||||||
+[2025-10-26 15:04:13,700] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:04:47,951] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'B', 'confidence': 1.0, 'usage': {'input_tokens': 277, 'output_tokens': 1}}
+[2025-10-26 15:04:47,952] [INFO] |||||||||||||||||||| Interaction ended for patient #1 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:04:47,961] [INFO] |||||||||||||||||||| PATIENT #2 ||||||||||||||||||||
+[2025-10-26 15:04:47,964] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:05:13,694] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you experienced low mood or loss of interest in activities you used to enjoy?', 'letter_choice': 'D', 'confidence': 0.0, 'usage': {'input_tokens': 507, 'output_tokens': 17}}
+[2025-10-26 15:05:15,119] [INFO] [Patient System]: Yes, she has experienced loss of interest in activities she used to enjoy.
+[2025-10-26 15:05:15,119] [INFO] ==================== Turn 2 ====================
+[2025-10-26 15:05:56,584] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'B', 'confidence': 1.0, 'usage': {'input_tokens': 308, 'output_tokens': 1}}
+[2025-10-26 15:05:56,584] [INFO] |||||||||||||||||||| Interaction ended for patient #2 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:05:56,597] [INFO] |||||||||||||||||||| PATIENT #3 ||||||||||||||||||||
+[2025-10-26 15:05:56,602] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:06:37,648] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'B', 'confidence': 1.0, 'usage': {'input_tokens': 294, 'output_tokens': 1}}
+[2025-10-26 15:06:37,648] [INFO] |||||||||||||||||||| Interaction ended for patient #3 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:06:37,661] [INFO] |||||||||||||||||||| PATIENT #4 ||||||||||||||||||||
+[2025-10-26 15:06:37,666] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:07:27,800] [INFO] [Expert System]: {'type': 'question', 'question': 'What is the patients blood glucose level?', 'letter_choice': 'A', 'confidence': 0.0, 'usage': {'input_tokens': 481, 'output_tokens': 10}}
+[2025-10-26 15:07:28,910] [INFO] [Patient System]: 450 mg/dL
+[2025-10-26 15:07:28,910] [INFO] ==================== Turn 2 ====================
+[2025-10-26 15:07:53,462] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'B', 'confidence': 1.0, 'usage': {'input_tokens': 277, 'output_tokens': 1}}
+[2025-10-26 15:07:53,462] [INFO] |||||||||||||||||||| Interaction ended for patient #4 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:07:53,474] [INFO] |||||||||||||||||||| PATIENT #5 ||||||||||||||||||||
+[2025-10-26 15:07:53,478] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:08:27,762] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you noticed any changes in your menstrual bleeding?', 'letter_choice': 'C', 'confidence': 0.0, 'usage': {'input_tokens': 495, 'output_tokens': 11}}
+[2025-10-26 15:08:29,629] [INFO] [Patient System]: The patient cannot answer this question, please do not ask this question again.
+[2025-10-26 15:08:29,630] [INFO] ==================== Turn 2 ====================
+[2025-10-26 15:09:09,149] [INFO] [Expert System]: {'type': 'question', 'question': 'Have you noticed any changes in your bowel habits or stool color?', 'letter_choice': 'C', 'confidence': 0.0, 'usage': {'input_tokens': 553, 'output_tokens': 14}}
+[2025-10-26 15:09:10,954] [INFO] [Patient System]: The patient cannot answer this question, please do not ask this question again.
+[2025-10-26 15:09:10,955] [INFO] ==================== Turn 3 ====================
+[2025-10-26 15:09:49,000] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'C', 'confidence': 1.0, 'usage': {'input_tokens': 330, 'output_tokens': 1}}
+[2025-10-26 15:09:49,000] [INFO] |||||||||||||||||||| Interaction ended for patient #5 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:09:49,009] [INFO] |||||||||||||||||||| PATIENT #6 ||||||||||||||||||||
+[2025-10-26 15:09:49,009] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:10:13,610] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'C', 'confidence': 1.0, 'usage': {'input_tokens': 296, 'output_tokens': 1}}
+[2025-10-26 15:10:13,611] [INFO] |||||||||||||||||||| Interaction ended for patient #6 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:10:13,625] [INFO] |||||||||||||||||||| PATIENT #7 ||||||||||||||||||||
+[2025-10-26 15:10:13,629] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:10:59,333] [INFO] [Expert System]: {'type': 'choice', 'question': None, 'letter_choice': 'D', 'confidence': 1.0, 'usage': {'input_tokens': 269, 'output_tokens': 1}}
+[2025-10-26 15:10:59,333] [INFO] |||||||||||||||||||| Interaction ended for patient #7 ||||||||||||||||||||
+
+
+
+[2025-10-26 15:10:59,346] [INFO] |||||||||||||||||||| PATIENT #8 ||||||||||||||||||||
+[2025-10-26 15:10:59,349] [INFO] ==================== Turn 1 ====================
+[2025-10-26 15:11:53,562] [INFO] [Expert System]: {'type': 'question', 'question': 'How long have you had difficulty walking?', 'letter_choice': 'A', 'confidence': 0.0, 'usage': {'input_tokens': 537, 'output_tokens': 9}}
+[2025-10-26 15:11:55,523] [INFO] [Patient System]: The patient has had difficulty walking over the last year.
+[2025-10-26 15:11:55,523] [INFO] ==================== Turn 2 ====================

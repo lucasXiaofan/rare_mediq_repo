@@ -1829,6 +1829,7 @@ def search_for_answers(args, user_question: str, question_id: int, gt_answer: st
         f"********************* Searching for answers to question {question_id} ********************* ", args.verbose
     )
 
+    print(f"<question feed to MCTS>: {user_question}")
     #! build an MCTS searcher
     mcts_searcher = MCTS_Searcher(
         exploration_weight=args.mcts_exploration_weight,

@@ -91,6 +91,7 @@ def main():
 
         # create the directory if it does not exist
         os.makedirs(os.path.dirname(args.output_filename), exist_ok=True)
+        print(f"debug what is output_dict {output_dict}")
         with open(args.output_filename, 'a+') as f:
             f.write(json.dumps(output_dict) + '\n')
 

@@ -38,6 +38,11 @@ def get_args():
     parser.add_argument('--top_logprobs', type=int, default=0, help='Number of top logprobs to return.')
     parser.add_argument('--api_account', type=str, default="mediQ", help='API keys are stored in keys.py, api_account is the name of the key.')
     parser.add_argument('--api_base_url', type=str, default=None, help='Optional base URL override for OpenAI-compatible APIs.')
+    parser.add_argument('--deepseek_num_rollouts', type=int, default=2, help='Number of MCTS rollouts to use when calling the DeepSeek wrapper.')
+    parser.add_argument('--deepseek_evaluator', type=str, default='MedQA', help='Evaluator/dataset name passed into the DeepSeek wrapper.')
+    parser.add_argument('--deepseek_model_ckpt', type=str, default='deepseek-chat', help='DeepSeek model checkpoint to call through IO_System.')
+    parser.add_argument('--deepseek_prompts_root', type=str, default=None, help='Optional override for the prompts directory used by the DeepSeek wrapper.')
+    parser.add_argument('--deepseek_data_root', type=str, default=None, help='Optional override for the data directory used by the DeepSeek wrapper.')
     
     args =  parser.parse_args()
 

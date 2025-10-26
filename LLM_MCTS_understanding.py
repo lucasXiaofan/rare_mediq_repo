@@ -72,8 +72,8 @@ def create_args_for_deepseek():
     args.num_subquestions = 3
     args.num_queries = 2
     args.num_a1_steps = 3
-    args.num_votes = 3
-    args.mcts_num_last_votes = 3
+    args.num_votes = 2
+    args.mcts_num_last_votes = 2
     args.search_query_weight = 0.5
     args.enable_potential_score = False
     args.enable_answer_checking = False

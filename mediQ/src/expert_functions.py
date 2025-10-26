@@ -302,6 +302,7 @@ def scale_abstention_decision(patient_state, rationale_generation, inquiry, opti
         {"role": "system", "content": prompts.expert_system["meditron_system_msg"]},
         {"role": "user", "content": prompt_abstain}
     ]
+    print(f"<problem feed to scale expert>: {messages}")
     response_text, conf_score, log_probs, num_tokens = expert_basics.expert_response_scale_score(messages, abstain_threshold=abstain_threshold, **kwargs)
     abstain_decision = conf_score < abstain_threshold
     log_info(f"[ABSTENTION PROMPT]: {messages}")

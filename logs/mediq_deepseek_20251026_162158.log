@@ -1,0 +1,5 @@
+[2025-10-26 16:26:30,226] [INFO] Processed 1/5 patients | Accuracy: 1.0
+[2025-10-26 16:30:48,567] [INFO] Processed 2/5 patients | Accuracy: 0.5
+[2025-10-26 16:37:37,779] [INFO] Processed 3/5 patients | Accuracy: 0.3333333333333333
+[2025-10-26 16:45:04,723] [INFO] Processed 4/5 patients | Accuracy: 0.5
+[2025-10-26 16:51:05,357] [INFO] Processed 5/5 patients | Accuracy: 0.6
