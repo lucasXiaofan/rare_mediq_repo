@@ -93,7 +93,7 @@ def main():
         "--message_log_filename",
         str(message_log),
         "--max_questions",
-        "10",
+        "3",
         "--temperature",
         "0.6",
         "--max_tokens",
